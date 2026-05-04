@@ -1,1 +1,102 @@
-
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Soyou Beauty - 在线预约</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:linear-gradient(135deg,#FDF8F5 0%,#F5EDE8 100%);min-height:100vh;color:#5D4E47}
+        .container{max-width:480px;margin:0 auto;padding:0 20px 40px}
+        .header{text-align:center;padding:40px 0 30px}
+        .logo{width:80px;height:80px;background:linear-gradient(135deg,#E8B4A0 0%,#D4A088 100%);border-radius:20px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 8px 24px rgba(212,160,136,0.3)}
+        .brand-name{font-size:24px;font-weight:600;color:#5D4E47;letter-spacing:2px}
+        .brand-sub{font-size:12px;color:#A8958A;margin-top:8px;letter-spacing:1px}
+        .cover{width:100%;height:180px;background:linear-gradient(135deg,#F5E6DC 0%,#E8D5C8 100%);border-radius:20px;margin-bottom:30px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+        .cover::before{content:'';position:absolute;width:200%;height:200%;background:radial-gradient(circle,rgba(232,180,160,0.3) 0%,transparent 50%);animation:pulse 4s ease-in-out infinite}
+        @keyframes pulse{0%,100%{transform:scale(0.8);opacity:0.5}50%{transform:scale(1.2);opacity:0.8}}
+        .cover-text{text-align:center;z-index:1}
+        .cover-text h2{font-size:20px;color:#8B7355;margin-bottom:8px}
+        .cover-text p{font-size:14px;color:#A8958A}
+        .form-card{background:white;border-radius:24px;padding:30px 24px;box-shadow:0 4px 20px rgba(93,78,71,0.08);margin-bottom:20px}
+        .form-title{font-size:18px;font-weight:600;color:#5D4E47;margin-bottom:24px;display:flex;align-items:center;gap:10px}
+        .form-title::before{content:'';width:4px;height:20px;background:linear-gradient(180deg,#E8B4A0 0%,#D4A088 100%);border-radius:2px}
+        .service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
+        .service-item{padding:16px;border:2px solid #F0E6E0;border-radius:16px;text-align:center;cursor:pointer;transition:all 0.3s ease}
+        .service-item:hover{border-color:#E8B4A0}
+        .service-item.active{border-color:#E8B4A0;background:linear-gradient(135deg,#FDF8F5 0%,#F5EDE8 100%)}
+        .service-item .icon{font-size:28px;margin-bottom:8px}
+        .service-item .name{font-size:14px;font-weight:500;color:#5D4E47;margin-bottom:4px}
+        .service-item .price{font-size:12px;color:#E8B4A0;font-weight:600}
+        .input-group{margin-bottom:20px}
+        .input-label{font-size:14px;color:#8B7355;margin-bottom:8px;display:block}
+        .input-field{width:100%;padding:14px 16px;border:2px solid #F0E6E0;border-radius:12px;font-size:15px;color:#5D4E47;transition:all 0.3s ease;background:#FDFAF8}
+        .input-field:focus{outline:none;border-color:#E8B4A0;background:white}
+        .input-field::placeholder{color:#C4B5AB}
+        .datetime-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        .select-field{width:100%;padding:14px 16px;border:2px solid #F0E6E0;border-radius:12px;font-size:15px;color:#5D4E47;background:#FDFAF8;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23C4B5AB' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+        .select-field:focus{outline:none;border-color:#E8B4A0}
+        .textarea-field{width:100%;padding:14px 16px;border:2px solid #F0E6E0;border-radius:12px;font-size:15px;color:#5D4E47;background:#FDFAF8;resize:none;height:100px;font-family:inherit}
+        .textarea-field:focus{outline:none;border-color:#E8B4A0;background:white}
+        .submit-btn{width:100%;padding:16px;background:linear-gradient(135deg,#E8B4A0 0%,#D4A088 100%);border:none;border-radius:16px;font-size:16px;font-weight:600;color:white;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 16px rgba(212,160,136,0.4)}
+        .submit-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,160,136,0.5)}
+        .submit-btn:active{transform:translateY(0)}
+        .shop-info{background:white;border-radius:24px;padding:24px;box-shadow:0 4px 20px rgba(93,78,71,0.08)}
+        .info-title{font-size:16px;font-weight:600;color:#5D4E47;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .info-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;font-size:14px;color:#8B7355}
+        .info-item .icon{font-size:18px;flex-shrink:0}
+        .info-item a{color:#E8B4A0;text-decoration:none}
+        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;padding:20px}
+        .modal.show{display:flex}
+        .modal-content{background:white;border-radius:24px;padding:40px 30px;text-align:center;max-width:340px;width:100%;animation:slideUp 0.3s ease}
+        @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .modal-icon{width:80px;height:80px;background:linear-gradient(135deg,#E8F5E9 0%,#C8E6C9 100%);border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:40px}
+        .modal-title{font-size:20px;font-weight:600;color:#5D4E47;margin-bottom:12px}
+        .modal-text{font-size:14px;color:#8B7355;margin-bottom:24px;line-height:1.6}
+        .modal-btn{padding:12px 40px;background:linear-gradient(135deg,#E8B4A0 0%,#D4A088 100%);border:none;border-radius:12px;font-size:15px;font-weight:500;color:white;cursor:pointer}
+        .bottom-space{height:40px}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🌸</div>
+            <div class="brand-name">SOYOU BEAUTY</div>
+            <div class="brand-sub">美甲 · 美睫 · 皮肤管理</div>
+        </div>
+        <div class="cover">
+            <div class="cover-text">
+                <h2>✨ 预约您的专属时光 ✨</h2>
+                <p>到店即送免费手部护理</p>
+            </div>
+        </div>
+        <div class="form-card">
+            <div class="form-title">选择服务</div>
+            <div class="service-grid">
+                <div class="service-item" onclick="selectService(this,'单色美甲',68)"><div class="icon">💅</div><div class="name">日式单色美甲</div><div class="price">¥68</div></div>
+                <div class="service-item" onclick="selectService(this,'美睫',128)"><div class="icon">👁️</div><div class="name">日式美睫</div><div class="price">¥128</div></div>
+                <div class="service-item" onclick="selectService(this,'脚部美甲',88)"><div class="icon">🦶</div><div class="name">脚部美甲</div><div class="price">¥88</div></div>
+                <div class="service-item" onclick="selectService(this,'皮肤管理',88)"><div class="icon">✨</div><div class="name">皮肤清洁管理</div><div class="price">¥88</div></div>
+            </div>
+            <form id="bookingForm">
+                <div class="input-group"><label class="input-label">您的称呼</label><input type="text" class="input-field" placeholder="请输入昵称" id="name" required></div>
+                <div class="input-group"><label class="input-label">手机号码</label><input type="tel" class="input-field" placeholder="请输入手机号" id="phone" required></div>
+                <div class="input-group"><label class="input-label">预约日期</label><input type="date" class="input-field" id="date" required></div>
+                <div class="input-group"><label class="input-label">预约时间</label><select class="select-field" id="time" required><option value="">请选择时间</option><option value="10:00">10:00</option><option value="11:00">11:00</option><option value="12:00">12:00</option><option value="13:00">13:00</option><option value="14:00">14:00</option><option value="15:00">15:00</option><option value="16:00">16:00</option><option value="17:00">17:00</option><option value="18:00">18:00</option><option value="19:00">19:00</option><option value="20:00">20:00</option></select></div>
+                <div class="input-group"><label class="input-label">备注（可选）</label><textarea class="textarea-field" placeholder="如有特殊需求请备注" id="note"></textarea></div>
+                <button type="submit" class="submit-btn">立即预约</button>
+            </form>
+        </div>
+        <div class="shop-info">
+            <div class="info-title">🏠 店铺信息</div>
+            <div class="info-item"><span class="icon">📍</span><span>东莞市东城街道海德城市花园9栋123室</span></div>
+            <div class="info-item"><span class="icon">⏰</span><span>营业时间：10:00 - 21:00</span></div>
+            <div class="info-item"><span class="icon">📞</span><span><a href="tel:13800138000">138-0013-8000</a></span></div>
+            <div class="info-item"><span class="icon">💬</span><span>微信：soyu_nail</span></div>
+        </div>
+        <div class="bottom-space"></div>
+    </div>
+    <div class="modal" id="successModal"><div class="modal-content"><div class="modal-icon">✓</div><div class="modal-title">预约成功！</div><div class="modal-text">我们已收到您的预约信息<br>稍后会有客服与您联系确认<br>请保持手机畅通哦~ 🌸</div><button class="modal-btn" onclick="closeModal()">知道了</button></div></div>
+    <script>const dateInput=document.getElementById('date');const today=new Date();dateInput.setAttribute('min',today.toISOString().split('T')[0]);function selectService(el,name,price){document.querySelectorAll('.service-item').forEach(item=>item.classList.remove('active'));el.classList.add('active');window.selectedService=name;window.selectedPrice=price}document.getElementById('bookingForm').addEventListener('submit',function(e){e.preventDefault();const name=document.getElementById('name').value;const phone=document.getElementById('phone').value;const date=document.getElementById('date').value;const time=document.getElementById('time').value;const note=document.getElementById('note').value;if(!window.selectedService){alert('请选择服务项目');return}document.getElementById('successModal').classList.add('show');console.log('预约信息：',{name,phone,date,time,service:window.selectedService,price:window.selectedPrice,note});this.reset();document.querySelectorAll('.service-item').forEach(item=>item.classList.remove('active'))});function closeModal(){document.getElementById('successModal').classList.remove('show')}document.getElementById('successModal').addEventListener('click',function(e){if(e.target===this)closeModal()});</script>
+</body>
+</html>
